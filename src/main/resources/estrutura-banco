@@ -1,0 +1,8 @@
+CREATE TABLE produto (
+    id SERIAL PRIMARY KEY,
+    descricao VARCHAR(500) NOT NULL,
+    categoria integer not null,
+    faixa integer not null,
+    tamanho VARCHAR(1),
+    preco NUMERIC(20,5)
+);

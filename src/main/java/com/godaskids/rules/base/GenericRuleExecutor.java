@@ -1,19 +1,17 @@
 package com.godaskids.rules.base;
 
-import com.godaskids.rules.base.bkp.Rule;
-import com.godaskids.rules.base.bkp.RuleType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-public class GenericRuleExecutor <T> implements RuleExecutor<T> {
+public class GenericRuleExecutor <T> implements RuleExecutorInterface<T> {
 
-    private final List<Rule<T>> rules;
+    private final List<RuleInterface<T>> rules;
 
     @Autowired
-    public GenericRuleExecutor(List<Rule<T>> rules) {
+    public GenericRuleExecutor(List<RuleInterface<T>> rules) {
         this.rules = rules;
     }
 

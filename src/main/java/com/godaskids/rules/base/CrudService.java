@@ -1,13 +1,14 @@
 package com.godaskids.rules.base;
 
-import com.godaskids.rules.base.bkp.RuleType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
 
 public abstract class CrudService <T, ID> {
 
     @Autowired
-    private RuleExecutor<T> executor;
+    private RuleExecutorInterface<T> executor;
 
     protected abstract JpaRepository<T, ID> getRepo();
 
@@ -30,5 +31,9 @@ public abstract class CrudService <T, ID> {
     public T buscarPorId(ID id) {
         return getRepo().findById(id)
                 .orElseThrow(() -> new RuntimeException("Registro não encontrado"));
+    }
+
+    public List<T> listar() {
+        return getRepo().findAll();
     }
 }

@@ -1,4 +1,4 @@
-package com.godaskids.rules.base.bkp;
+package com.godaskids.rules.base;
 
 public enum RuleType {
     SAVE,

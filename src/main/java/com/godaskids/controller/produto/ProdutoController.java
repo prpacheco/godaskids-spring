@@ -1,12 +1,12 @@
 package com.godaskids.controller.produto;
 
-import com.godaskids.dto.ProdutoDTO;
+import com.godaskids.entity.ProdutoEntity;
 import com.godaskids.service.produto.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/produtos")
@@ -14,7 +14,7 @@ public class ProdutoController {
 
 	@Autowired
 	private ProdutoService service;
-
+/*
     @GetMapping("/consulta")
     public Page<ProdutoDTO> consultar(
             @RequestParam(required = false) String descricao,
@@ -31,10 +31,20 @@ public class ProdutoController {
     public ProdutoDTO consultar(@RequestParam(required = true) Integer id) {
         return service.consultar(id);
     }
-
+*/
     @PostMapping("/salvar")
-	public ProdutoResponse salvar(@RequestBody ProdutoRequest request) {
-		return service.salvar(request);
+	public ProdutoResponse salvar(@RequestBody ProdutoRequest req) {
+
+        ProdutoEntity e = new ProdutoEntity();
+        e.setDescricao(req.descricao());
+        e.setCategoria(req.categoria());
+        e.setFaixa(req.faixa());
+        e.setTamanho(req.tamanho());
+        e.setPreco(req.preco());
+
+        e = service.salvar(e);
+
+        return new ProdutoResponse(e.getId(), e.getDescricao(), e.getCategoria(), e.getFaixa(), e.getTamanho(), e.getPreco());
 	}
 
 }

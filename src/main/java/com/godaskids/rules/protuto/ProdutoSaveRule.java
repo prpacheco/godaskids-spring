@@ -2,13 +2,13 @@ package com.godaskids.rules.protuto;
 
 import com.godaskids.entity.ProdutoEntity;
 import com.godaskids.repository.ProdutoRepository;
+import com.godaskids.rules.base.RuleInterface;
 import com.godaskids.rules.base.RuleException;
-import com.godaskids.rules.base.bkp.Rule;
-import com.godaskids.rules.base.bkp.RuleType;
+import com.godaskids.rules.base.RuleType;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ProdutoSaveRule implements Rule<ProdutoEntity> {
+public class ProdutoSaveRule implements RuleInterface<ProdutoEntity> {
 
     private final ProdutoRepository repo;
 
@@ -23,8 +23,8 @@ public class ProdutoSaveRule implements Rule<ProdutoEntity> {
 
     @Override
     public void validate(ProdutoEntity obj) {
-//        if (repo.existsByDescricao(p.getDescricao())) {
+        if (repo.existsByDescricao(p.getDescricao())) {
             throw new RuleException("Teste regra.");
-//        }
+        }
     }
 }

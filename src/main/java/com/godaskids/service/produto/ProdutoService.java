@@ -1,27 +1,29 @@
 package com.godaskids.service.produto;
 
-import com.godaskids.controller.produto.ProdutoRequest;
-import com.godaskids.controller.produto.ProdutoResponse;
-import com.godaskids.dto.ProdutoDTO;
 import com.godaskids.entity.ProdutoEntity;
 import com.godaskids.repository.ProdutoRepository;
 import com.godaskids.rules.base.CrudService;
-import com.godaskids.rules.protuto.ProdutoRuleExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProdutoService extends CrudService<ProdutoEntity, Long> {
 
-	@Autowired
+    @Autowired
+    private ProdutoRepository repo;
+
+    @Override
+    protected JpaRepository<ProdutoEntity, Long> getRepo() {
+        return repo;
+    }
+
+	/*@Autowired
 	private final ProdutoRepository repo;
-    private final ProdutoRuleExecutor executor;
+    private final ProdutoExecutorRule executor;
 
     public ProdutoService(ProdutoRepository repo,
-                          ProdutoRuleExecutor executor) {
+                          ProdutoExecutorRule executor) {
         this.repo = repo;
         this.executor = executor;
     }
@@ -58,4 +60,5 @@ public class ProdutoService extends CrudService<ProdutoEntity, Long> {
     protected JpaRepository<ProdutoEntity, Long> getRepo() {
         return repo;
     }
+	 */
 }

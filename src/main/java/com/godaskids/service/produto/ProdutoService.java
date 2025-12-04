@@ -26,13 +26,20 @@ public class ProdutoService extends CrudService<ProdutoEntity, Long> {
         this.executor = executor;
     }
 
-	public Page<ProdutoDTO> consultar(String descricao, String categoria, String faixa, String tamanho,
-			Pageable pageable) {
+    public Page<ProdutoDTO> consultar(String descricao, String categoria, String faixa, String tamanho,
+                                      Pageable pageable) {
 
-		return repo.consultar(descricao, categoria, faixa, tamanho, pageable).map(ProdutoDTO::fromEntity);
-	}
+        return repo.consultar(descricao, categoria, faixa, tamanho, pageable).map(ProdutoDTO::fromEntity);
+    }
 
-	public ProdutoResponse salvar(ProdutoRequest req) {
+    public ProdutoDTO consultar(Integer id) {
+        return repo.consultar(id)
+                .map(ProdutoDTO::fromEntity)
+                .orElseThrow(() -> new RuntimeException("Produto não encontrado: " + id));
+    }
+
+
+    public ProdutoResponse salvar(ProdutoRequest req) {
 
 		ProdutoEntity e = new ProdutoEntity();
 		e.setDescricao(req.descricao());

@@ -1,19 +1,19 @@
 package com.godaskids.repository;
 
+import com.godaskids.entity.ProdutoEntity;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
-
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
-
-import com.godaskids.entity.ProdutoEntity;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 
 @Repository
@@ -58,6 +58,20 @@ public class ProdutoRepositoryImpl implements ProdutoRepositoryCustom {
         long total = (long) countQuery.getSingleResult();
 
         return new PageImpl<>(lista, pageable, total);
+    }
+
+    @Override
+    public Optional<ProdutoEntity> consultar(Integer id) {
+        try {
+            String jpql = "SELECT p FROM Produto p WHERE p.id = :id";
+            ProdutoEntity entity = em.createQuery(jpql, ProdutoEntity.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
+
+            return Optional.of(entity);
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
     }
 }
 
